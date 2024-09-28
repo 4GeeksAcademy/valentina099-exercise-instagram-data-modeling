@@ -23,17 +23,18 @@ class Followers(Base):
     # Here we define columns for the table followers
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    user_from_id = Column(String(250), nullable=False)
-    user_to_id = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+    user_from_id = Column(Integer, ForeignKey('user_from_id.id'))
+    user_from_id = relationship(user_from_id)
+    user_to_id = Column(Integer, ForeignKey('user_to_id.id'))
+    user_to_id = relationship(user_to_id)
 
 class Post(Base):
     __tablename__ = 'post'
     # Here we define columns for the table post
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    userid = Column(String(250), nullable=False)
     urlimage = Column(String(250), nullable=False)
     description = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
@@ -45,8 +46,6 @@ class Coments(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     coment_text = Column(String(250), nullable=False)
-    author_id = Column(String(250), nullable=False)
-    post_id = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
     post_id = Column(Integer, ForeignKey('post.id'))
@@ -58,7 +57,6 @@ class Media(Base):
     # Here we define columns for the table media
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    post_id = Column(String(250), nullable=False)
     media_type = Column(String(250), nullable=False)
     post_id = Column(Integer, ForeignKey('post.id'))
     post = relationship(Post)
