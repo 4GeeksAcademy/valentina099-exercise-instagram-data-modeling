@@ -23,12 +23,10 @@ class Followers(Base):
     # Here we define columns for the table followers
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
+    user_from_id =  Column(String(250), nullable=False)
+    user_to_id =  Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
-    user_from_id = Column(Integer, ForeignKey('user_from_id.id'))
-    user_from_id = relationship(user_from_id)
-    user_to_id = Column(Integer, ForeignKey('user_to_id.id'))
-    user_to_id = relationship(user_to_id)
 
 class Post(Base):
     __tablename__ = 'post'
